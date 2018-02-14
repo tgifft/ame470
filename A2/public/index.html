@@ -4,8 +4,11 @@
   <script src='jquery-3.3.1.min.js'></script>
   <script>
 function sendToServer(){
-  // complete this function.
-  //  you can use loadFile()
+	var userInput = "3-4";
+	loadFile("./eval?eq=" + userInput, function(resData){
+		$("#result").html(resData);
+	});
+
 }
   </script>
 
