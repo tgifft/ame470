@@ -25,38 +25,38 @@ app.get("/getFeedData", function (req, res) {
 });
 
 
-app.get("/getAllFeeds", function (req, res) {
-  db.collection('feeds').find().toArray(function(err, items) {
+app.get("/getAllImgs", function (req, res) {
+  db.collection('img').find().toArray(function(err, items) {
     res.send(items);
   });
 });
 
-app.get("/addFeed", function (req, res) {
+app.get("/addImg", function (req, res) {
   var data = req.query;
-  db.collection("feeds").insert(data, function(err, result){
+  db.collection("img").insert(data, function(err, result){
     res.send("1");
   });
 });
 
 
-app.get("/renameFeed", function (req, res) {
+app.get("/renameImg", function (req, res) {
   var data = req.query;
   var newName = data.name;
   var id = data.id;
   console.log(newName, id);
-  db.collection("feeds").findOne({id:id}, function(err, result){
+  db.collection("img").findOne({id:id}, function(err, result){
       result.name = newName;
-      db.collection("feeds").save(result, function(err){
+      db.collection("img").save(result, function(err){
         res.end("1");
       });
   });
 });
 
 
-app.get("/deleteFeed", function (req, res) {
+app.get("/deleteImg", function (req, res) {
   var data = req.query;
   var id = data.id;
-  db.collection("feeds").remove({id:id}, function(err, result){
+  db.collection("img").remove({id:id}, function(err, result){
      res.end("1");
   });
 });

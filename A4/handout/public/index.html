@@ -24,8 +24,8 @@
   button{
     border:none;
   }
-  #theFeedList button h1,
-  #theFeedList button h2,
+  #theImageList button h1,
+  #theImageList button h2,
   #theList button h1,
   #theList button h2
   {
@@ -52,7 +52,7 @@
       margin-top: -50px;
       margin-right: 5px;
     }
-    #allRSSFeeds{
+    #allImagesWrapper{
       float:left;
       width: 250px;
       min-height: 100%;
@@ -66,7 +66,7 @@
     } 
     #theDetails{
       float:right;
-      width: calc(100% - 500px);
+      width: calc(100% - 250px);
       min-height: 100%;
       background: lightgray;
       text-align:center;
@@ -79,7 +79,7 @@
     var x = prompt("Rename Feed", currName);
     console.log(x);
     if(x){
-      var url = "./renameFeed?name=" + encodeURIComponent(x);
+      var url = "./renameImg?name=" + encodeURIComponent(x);
       url += "&id=" + id;
       loadFile(url, function(resData){
           start();
@@ -89,9 +89,9 @@
 
   function deleteClicked(n){
     var id = currRSSFeedList[n].id;
-    var x = confirm("Delete Feed?");
+    var x = confirm("Delete Image?");
     if(x){
-      var url = "./deleteFeed?id=" + id;
+      var url = "./deleteImg?id=" + id;
       loadFile(url, function(resData){
           start();
       });
@@ -123,14 +123,14 @@
     var feedURL = currRSSFeedList[n].url;
     var url = "./getFeedData?url=" + feedURL;
     loadRSS(url);
-    $("#theFeedList .item").removeClass("active");
-    $("#theFeedList .item:nth-of-type(" + (n+1) + ")").addClass("active");
+    $("#theImageList .item").removeClass("active");
+    $("#theImageList .item:nth-of-type(" + (n+1) + ")").addClass("active");
   }
 
-  function addRSSSrc()
+  function addImgSrc()
   {
-    var feedURL = prompt("Enter new RSS feed URL:");
-    var url = "./addFeed?url=" + feedURL;
+    var feedURL = prompt("Enter new image URL:");
+    var url = "./addImg?url=" + feedURL;
     url += "&date=" + new Date().getTime();
     url += "&name=Untitled";
     url += "&id=test" + new Date().getTime();
@@ -142,23 +142,23 @@
   function start()
   {
     ac.show();
-    var url = "./getAllFeeds";
+    var url = "./getAllImgs";
     loadFile(url, function(resData){
        var allFeeds = JSON.parse(resData);
        currRSSFeedList = allFeeds;
         if(allFeeds.length == 0){
-          document.getElementById("theFeedList").innerHTML = "No feeds yet! Add some to start!!"
+          document.getElementById("theImageList").innerHTML = "No images yet! Add some to start!!"
         }
         else{
           var markup = "";
           for(var i = 0; i < allFeeds.length; i++){
             markup += "<div class='item'>";
-              markup += "<button onclick='feedSelected(" + i + ")'><h1>" + allFeeds[i].name+ "</h1><h2>" + allFeeds[i].url + "<h2></button>";
+              markup += "<button onclick='imgSelected(" + i + ")'><h1>" + allFeeds[i].name+ "</h1><h2>" + allFeeds[i].url + "<h2></button>";
               markup += '<a href="javascript:renameClicked(' + i + ')"> Rename </a>';
               markup += '<a href="javascript:deleteClicked(' + i + ')"> Delete </a>';
               markup += "</div>";
           }
-          $("#theFeedList").html(markup);
+          $("#theImageList").html(markup);
         }     
         ac.hide();
     });
@@ -204,13 +204,10 @@
 </head>
 
 <body onload='start()'>
-<div id='allRSSFeeds'>
-	<h1> RSS Reader </h1>
-  <button id='editButton' onclick='addRSSSrc()'> Add</button>
-  <div id='theFeedList'></div>
-</div>
-<div id='rssBox'>
-  <div id='theList'></div>
+<div id='allImagesWrapper'>
+	<h1> Image Lib</h1>
+  <button id='editButton' onclick='addImgSrc()'> Add</button>
+  <div id='theImageList'></div>
 </div>
 <div id='theDetails'></div>
 
