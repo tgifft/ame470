@@ -9,7 +9,7 @@ var port = 1234;
 var Client = require('node-rest-client').Client;
 
 var MS = require("mongoskin");
-var db = MS.db("mongodb://localhost:27017/ame470")
+var db = MS.db("mongodb://localhost:27017/ame470");
 
 
 app.get("/", function (req, res) {
@@ -27,6 +27,8 @@ app.get("/getFeedData", function (req, res) {
 
 app.get("/getAllImgs", function (req, res) {
   db.collection('img').find().toArray(function(err, items) {
+    console.log(err, items);
+    if(!items) items = [];
     res.send(items);
   });
 });
