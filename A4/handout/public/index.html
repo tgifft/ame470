@@ -40,7 +40,6 @@
   {
     font-size: 15px;
   }
-
   #theList button img{
       height: 100px;
       width: 100px;
@@ -57,13 +56,13 @@
       width: 250px;
       min-height: 100%;
       background: gray;
-    } 
+    }
     #rssBox{
       float:left;
       width: 250px;
       min-height: 100%;
       background: lightgray;
-    } 
+    }
     #theDetails{
       float:right;
       width: calc(100% - 250px);
@@ -86,7 +85,6 @@
       });
     }
   }
-
   function deleteClicked(n){
     var id = currRSSFeedList[n].id;
     var x = confirm("Delete Image?");
@@ -97,10 +95,6 @@
       });
     }
   }
-
-
-
-
   function getDataFromServer(){
     //var url = "./eval?eq=34-4*45";
     var url = "https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json";
@@ -108,7 +102,6 @@
       $("#result").val(resData);
     });
   }
-
   var currRSSData = null;
   function changeRSSSrc()
   {
@@ -116,7 +109,6 @@
     var url = "./getFeedData?url=" + feedURL;
     loadRSS(url);
   }
-
   function feedSelected(n)
   {
     ac.show();
@@ -126,7 +118,6 @@
     $("#theImageList .item").removeClass("active");
     $("#theImageList .item:nth-of-type(" + (n+1) + ")").addClass("active");
   }
-
   function addImgSrc()
   {
     var feedURL = prompt("Enter new image URL:");
@@ -138,7 +129,13 @@
         start();
     })
   }
-
+  function imgSelected(n)
+  {
+    var currName = currRSSFeedList[n].name;
+    var id = currRSSFeedList[n].id;
+    var imgURL = currRSSFeedList[n].url;
+    alert(imgURL);
+  }
   function start()
   {
     ac.show();
@@ -160,11 +157,10 @@
               markup += "</div>";
           }
           $("#theImageList").html(markup);
-        }     
+        }
         ac.hide();
     });
   }
-
   function loadRSS(url){
     console.log(url);
     loadFile(url, function(resData){
@@ -192,11 +188,8 @@
     var name = data.name || "";
     var link = data.url || "";
     console.log(data);
-
     markup += "<img src='" + thumbnail + "'>";
     markup += "<a target='_blank' href='" + link + "'><h1>" + name + "</h1></a>";
-
-
     $("#theDetails").html(markup);
     //document.getElementById("theDetails").innerHTML = markup;
   }
