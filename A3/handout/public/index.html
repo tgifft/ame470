@@ -8,7 +8,7 @@
       width: 250px;
       min-height: 100%;
       background: gray;
-    } 
+    }
     #theDetails{
       float:right;
       width: calc(100% - 250px);
@@ -48,7 +48,10 @@
   function itemSelected(n)
   {
     var data = currRSSData[n];
-    var markup = JSON.stringify(data);
+    var markup = "";
+    var title = data.name || "";
+    var link = data.url || "";
+    var artist = data.artistName || "";
     $("#theDetails").html(markup);
   }
   </script>
